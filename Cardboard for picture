@@ -1,0 +1,69 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define all(x) (x).begin(), (x).end()
+#define allr(x) (x).rbegin(), (x).rend()
+#define gsize(x) (int)((x).size())
+#define int long long
+#define endl '\n'
+bool comparePairs(const pair<int, int> &a, const pair<int, int> &b)
+{
+    if (a.first != b.first)
+        return a.first > b.first;
+    return a.second < b.second;
+}
+#define optimize()                \
+    ios_base::sync_with_stdio(0); \
+    cin.tie(0);                   \
+    cout.tie(0);
+// const int mod = 1e10 + 7;
+bool check(vector<int> &arr, int a, int mid)
+{
+    int sum = 0;
+    for (int i = 0; i < gsize(arr); i++)
+    {
+        sum += (arr[i] + (mid * 2)) * (arr[i] + (mid * 2));
+        if (sum > a)
+            return false;
+    }
+    if (sum <= a)
+        return true;
+    else
+        return false;
+}
+void solve()
+{
+    int n, a;
+    cin >> n >> a;
+    vector<int> arr(n);
+    for (auto &it : arr)
+        cin >> it;
+    int s = 1;
+    int e = 1e10 + 7;
+    int ans = 1;
+    while (s <= e)
+    {
+        int mid = (s + e) / 2;
+        if (check(arr, a, mid))
+        {
+            ans = mid;
+            s = mid + 1;
+        }
+        else
+            e = mid - 1;
+    }
+    cout << ans << endl;
+}
+
+signed main()
+{
+    optimize();
+    int n;
+    cin >> n;
+    while (n--)
+    {
+        solve();
+    }
+
+    return 0;
+}
