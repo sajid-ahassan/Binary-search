@@ -1,0 +1,90 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define all(x) (x).begin(), (x).end()
+#define allr(x) (x).rbegin(), (x).rend()
+#define gsize(x) (int)((x).size())
+#define int long long
+#define endl '\n'
+double pi = 3.141592653589793238462643383279;
+bool comparePairs(const pair<int, int> &a, const pair<int, int> &b)
+{
+    if (a.first != b.first)
+        return a.first > b.first;
+    return a.second < b.second;
+}
+#define optimize()                \
+    ios_base::sync_with_stdio(0); \
+    cin.tie(0);                   \
+    cout.tie(0);
+const int M = 1e7 + 1;
+void marging(vector<int> &arr, int s, int mid, int e)
+{
+    vector<int> tmp;
+    int l = s;
+    int r = mid + 1;
+    while (l <= mid && r <= e)
+    {
+        if (arr[l] <= arr[r])
+        {
+            tmp.push_back(arr[l]);
+            l++;
+        }
+        else
+        {
+            tmp.push_back(arr[r]);
+            r++;
+        }
+    }
+    while (l <= mid)
+    {
+        tmp.push_back(arr[l]);
+        l++;
+    }
+    while (r <= e)
+    {
+        tmp.push_back(arr[r]);
+        r++;
+    }
+    for (int i = s; i <= e; i++)
+    {
+        arr[i] = tmp[i - s];
+    }
+}
+void marge_s(vector<int> &arr, int s, int e)
+{
+    if (s == e)
+        return;
+    int mid = (s + e) / 2;
+    marge_s(arr, s, mid);
+    marge_s(arr, mid + 1, e);
+    marging(arr, s, mid, e);
+}
+void solve()
+{
+    int x;
+    vector<int> arr;
+    while (cin >> x)
+    {
+        arr.push_back(x);
+    }
+    marge_s(arr, 0, gsize(arr) - 1);
+    for (int i = 0; i < gsize(arr); i++)
+    {
+        cout << arr[i] << ' ';
+    }
+    cout << endl;
+}
+
+signed main()
+{
+    optimize();
+    int n = 1;
+    // cin>>n;
+    while (n--)
+    {
+        solve();
+    }
+
+    return 0;
+}
