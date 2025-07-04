@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define all(x) (x).begin(), (x).end()
+#define allr(x) (x).rbegin(), (x).rend()
+#define gsize(x) (int)((x).size())
+#define int long long
+#define endl '\n'
+double pi = 3.141592653589793238462643383279;
+bool comparePairs(const pair<int, int> &a, const pair<int, int> &b)
+{
+    if (a.first != b.first)
+        return a.first > b.first;
+    return a.second < b.second;
+}
+#define optimize()                \
+    ios_base::sync_with_stdio(0); \
+    cin.tie(0);                   \
+    cout.tie(0);
+const int M = 1e7 + 1;
+void solve()
+{
+    int n;
+    cin >> n;
+    vector<int> arr(n);
+    for (auto &it : arr)
+        cin >> it;
+    sort(all(arr));
+    int q;
+    cin >> q;
+    for (int i = 0; i < q; i++)
+    {
+        int qs;
+        cin >> qs;
+        int ind = (upper_bound(all(arr), qs) - arr.begin());
+        cout << ind << endl;
+    }
+}
+
+signed main()
+{
+    optimize();
+    int n = 1;
+    // cin>>n;
+    while (n--)
+    {
+        solve();
+    }
+
+    return 0;
+}
