@@ -1,0 +1,64 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define all(x) (x).begin() + 1, (x).end()
+#define allr(x) (x).rbegin(), (x).rend()
+#define gsize(x) (int)((x).size())
+#define int long long
+// #define endl '\n'
+bool comparePairs(const pair<int, int> &a, const pair<int, int> &b)
+{
+    if (a.first != b.first)
+        return a.first > b.first;
+    return a.second < b.second;
+}
+#define optimize()                \
+    ios_base::sync_with_stdio(0); \
+    cin.tie(0);                   \
+    cout.tie(0);
+const int M = 1e6 + 7;
+void solve()
+{
+}
+signed main()
+{
+    optimize();
+    vector<int> prime(M, true);
+    vector<int> primes;
+    prime[0] = prime[1] = false;
+    for (int i = 2; i < M; i++)
+    {
+        if (prime[i])
+        {
+            primes.push_back(i);
+            for (int j = i * i; j < M; j += i)
+                prime[j] = false;
+        }
+    }
+
+    int k;
+    while (cin >> k && k != 0)
+    {
+        cout << k << ':' << endl;
+        auto s = primes.begin();
+        auto e = lower_bound(all(primes), k);
+        bool flag = true;
+        while (s <= e)
+        {
+            int sum = *s + *e;
+            if (sum == k)
+            {
+                cout << *s << '+' << *e << endl;
+                flag = false;
+                break;
+            }
+            else if (sum > k)
+                e--;
+            else
+                s++;
+        }
+        if (flag)
+            cout << "NO WAY!" << endl;
+    }
+    return 0;
+}
