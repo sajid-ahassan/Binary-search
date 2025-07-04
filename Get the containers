@@ -1,0 +1,79 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define all(x) (x).begin(), (x).end()
+#define allr(x) (x).rbegin(), (x).rend()
+#define gsize(x) (int)((x).size())
+#define int long long
+#define endl '\n'
+double pi = 3.141592653589793238462643383279;
+bool comparePairs(const pair<int, int> &a, const pair<int, int> &b)
+{
+    if (a.first != b.first)
+        return a.first < b.first;
+    return a.second > b.second;
+}
+#define optimize()                \
+    ios_base::sync_with_stdio(0); \
+    cin.tie(0);                   \
+    cout.tie(0);
+const int M = 1e7 + 1;
+bool poss(vector<int> &arr, int mid, int k)
+{
+    int ct = 1;
+    int sum = 0;
+    for (int i = 0; i < gsize(arr); i++)
+    {
+        if (sum + arr[i] <= mid)
+            sum += arr[i];
+        else
+        {
+            sum = arr[i];
+            ct++;
+        }
+    }
+    if (ct > k)
+        return false;
+    else
+        return true;
+}
+void solve()
+{
+    int n, k;
+    cin >> n >> k;
+    vector<int> arr(n);
+    int sum = 0, mx = 0;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+        sum += arr[i];
+        mx = max(mx, arr[i]);
+    }
+    int s = mx, e = sum, ans = 0;
+    while (s <= e)
+    {
+        int mid = s + (e - s) / 2;
+        if (poss(arr, mid, k))
+        {
+            e = mid - 1;
+            ans = mid;
+        }
+        else
+            s = mid + 1;
+    }
+    cout << ans << endl;
+}
+
+signed main()
+{
+    optimize();
+    int n;
+    cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        cout << "Case " << i + 1 << ": ";
+        solve();
+    }
+
+    return 0;
+}
