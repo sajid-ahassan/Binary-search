@@ -1,0 +1,62 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define all(x) (x).begin(), (x).end()
+#define allr(x) (x).rbegin(), (x).rend()
+#define gsize(x) (int)((x).size())
+#define int long long
+#define endl '\n'
+bool comparePairs(const pair<int, int> &a, const pair<int, int> &b)
+{
+    if (a.first != b.first)
+        return a.first > b.first;
+    return a.second < b.second;
+}
+#define optimize()                \
+    ios_base::sync_with_stdio(0); \
+    cin.tie(0);                   \
+    cout.tie(0);
+const int M = 1e7 + 1;
+void solve()
+{
+    int n;
+    cin >> n;
+    vector<int> arr(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    sort(all(arr));
+    int ans = 0;
+    for (int i = 0; i < n - 2; i++)
+    {
+        for (int j = i + 1; j < n - 1; j++)
+        {
+            int sum = arr[i] + arr[j];
+            int up = (lower_bound(arr.begin() + (j + 1), arr.end(), sum) - arr.begin());
+            if (up == n && arr[n - 1] >= sum)
+                up -= 2;
+            else
+                up--;
+
+            int diff = up - j;
+            ans += diff;
+            // cout << sum << ' ' << up << ' ' << diff << endl;
+        }
+    }
+    cout << ans << endl;
+}
+
+signed main()
+{
+    optimize();
+    int n;
+    cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        cout << "Case " << i + 1 << ": ";
+        solve();
+    }
+
+    return 0;
+}
