@@ -1,0 +1,92 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define all(x) (x).begin(), (x).end()
+#define allr(x) (x).rbegin(), (x).rend()
+#define gsize(x) (int)((x).size())
+#define int long long
+// #define endl '\n'
+bool comparePairs(const pair<int, int> &a, const pair<int, int> &b)
+{
+    if (a.first != b.first)
+        return a.first > b.first;
+    return a.second < b.second;
+}
+#define optimize()                \
+    ios_base::sync_with_stdio(0); \
+    cin.tie(0);                   \
+    cout.tie(0);
+const int M = 1e7 + 1;
+
+void pre(vector<int> arr, int k)
+{
+    int s = 0;
+    int b = -1;
+    int e = gsize(arr) - 1;
+    while (s <= e)
+    {
+        int mid = s + (e - s) / 2;
+        if (arr[mid] < k)
+        {
+            s = mid + 1;
+            b = arr[mid];
+        }
+        else
+            e = mid - 1;
+    }
+    if (b == -1)
+        cout << 'X' << ' ';
+    else
+        cout << b << ' ';
+}
+void post(vector<int> arr, int k)
+{
+    int s = 0;
+    int b = -1;
+    int e = gsize(arr) - 1;
+    while (s <= e)
+    {
+        int mid = s + (e - s) / 2;
+        if (arr[mid] <= k)
+            s = mid + 1;
+        else
+        {
+            e = mid - 1;
+            b = arr[mid];
+        }
+    }
+    if (b == -1)
+        cout << 'X';
+    else
+        cout << b;
+}
+
+void solve()
+{
+    int n;
+    cin >> n;
+    vector<int> arr(n);
+    for (auto &it : arr)
+        cin >> it;
+    int m;
+    cin >> m;
+    vector<int> arr1(m);
+    for (auto &it : arr1)
+        cin >> it;
+
+    for (int i = 0; i < m; i++)
+    {
+        int k = arr1[i];
+        pre(arr, k);
+        post(arr, k);
+        cout << endl;
+    }
+}
+
+signed main()
+{
+    optimize();
+    solve();
+
+    return 0;
+}
