@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define all(x) (x).begin(), (x).end()
+#define allr(x) (x).rbegin(), (x).rend()
+#define gsize(x) (int)((x).size())
+#define int long long
+#define optimize()                \
+    ios_base::sync_with_stdio(0); \
+    cin.tie(0);                   \
+    cout.tie(0);
+const int M = 1e6 + 7;
+
+void solve()
+{
+}
+
+signed main()
+{
+    optimize();
+    vector<bool> primes(M, true);
+    primes[0] = primes[1] = false;
+    for (int i = 2; i < M; i++)
+        if (primes[i] == true)
+            for (int j = i * i; j < M; j += i)
+                primes[j] = false;
+
+    int n;
+    cin >> n;
+    while (n--)
+    {
+        int x;
+        cin >> x;
+        int b = sqrt(x);
+        if (primes[b] == true && b * b == x)
+            cout << "YES" << endl;
+        else
+            cout << "NO" << endl;
+    }
+
+    return 0;
+}
