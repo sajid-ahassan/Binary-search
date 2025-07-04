@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define all(x) (x).begin(), (x).end()
+#define allr(x) (x).rbegin(), (x).rend()
+#define gsize(x) (int)((x).size())
+#define int long long
+#define endl '\n'
+bool comparePairs(const pair<int, int> &a, const pair<int, int> &b)
+{
+    if (a.first != b.first)
+        return a.first > b.first;
+    return a.second < b.second;
+}
+#define optimize()                \
+    ios_base::sync_with_stdio(0); \
+    cin.tie(0);                   \
+    cout.tie(0);
+const int M = 2*1e7 + 7;
+void solve()
+{
+    
+}
+
+signed main()
+{
+    optimize();
+    vector<bool> prime(M, true);
+    vector<int> primes;
+    vector<pair<int, int>> primes_pair;
+    prime[0] = prime[1] = false;
+    for (int i = 2; i < M; i++)
+    {
+        if (prime[i] == true)
+        {
+            primes.push_back(i);
+            for (int j = i * i; j < M; j += i)
+                prime[j] = false;
+        }
+    }
+
+    for (int i = 0; i < gsize(primes) - 1; i++)
+        if (primes[i + 1] - primes[i] == 2)
+            primes_pair.push_back({primes[i], primes[i + 1]});
+
+    int n;
+    while (cin >> n)
+    {
+        cout << '(' << primes_pair[n - 1].first << ", " << primes_pair[n - 1].second << ')' << endl;
+    }
+
+    return 0;
+}
