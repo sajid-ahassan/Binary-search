@@ -1,0 +1,68 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define all(x) (x).begin(), (x).end()
+#define allr(x) (x).rbegin(), (x).rend()
+#define gsize(x) (int)((x).size())
+#define int long long
+#define endl '\n'
+bool comparePairs(const pair<int, int> &a, const pair<int, int> &b)
+{
+    if (a.first != b.first)
+        return a.first > b.first;
+    return a.second < b.second;
+}
+#define optimize()                \
+    ios_base::sync_with_stdio(0); \
+    cin.tie(0);                   \
+    cout.tie(0);
+const int M = 1e7 + 1;
+bool chek(vector<int> arr, int mid, int c)
+{
+    int ct = 1;
+    int curr = arr[0];
+    for (int i = 1; i < gsize(arr); i++)
+    {
+        if (arr[i] - curr >= mid)
+        {
+            curr = arr[i];
+            ct++;
+        }
+        if (ct == c)
+            return true;
+    }
+    return false;
+}
+void solve()
+{
+    int n, c;
+    cin >> n >> c;
+    vector<int> arr(n);
+    int s = 1, e = 0;
+    for (auto &it : arr)
+    {
+        cin >> it;
+        e = max(e, it);
+    }
+    sort(all(arr));
+    while (s <= e)
+    {
+        int mid = s + (e - s) / 2;
+        if (chek(arr, mid, c))
+            s = mid + 1;
+        else
+            e = mid - 1;
+    }
+    cout << e << endl;
+}
+
+signed main()
+{
+    optimize();
+    int n;
+    cin >> n;
+    while (n--)
+        solve();
+
+    return 0;
+}
